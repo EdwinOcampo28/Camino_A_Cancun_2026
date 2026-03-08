@@ -1,20 +1,29 @@
 {
+  "id": "/cancun-ahorro",
   "name": "Camino a Cancún - Ahorro para Viajar",
   "short_name": "Cancún",
-  "description": "App de ahorro personal para cumplir tu meta de viajar a Cancún",
-  
+  "description": "Aplicación de ahorro personal para alcanzar tu meta y viajar a Cancún en 2026",
+
   "start_url": "./index.html",
   "scope": "./",
+
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "browser"],
+
   "orientation": "portrait",
-  
+
   "background_color": "#0f2027",
   "theme_color": "#00c6ff",
-  
-  "categories": ["finance", "lifestyle", "travel"],
-  
+
   "lang": "es",
-  
+
+  "categories": [
+    "finance",
+    "lifestyle",
+    "travel",
+    "productivity"
+  ],
+
   "icons": [
     {
       "src": "icons/icon-192.png",

@@ -25,7 +25,7 @@
 
 <body>
 
-<!-- HERO HEADER -->
+<!-- HERO -->
 
 <header class="hero">
 
@@ -35,7 +35,9 @@
 
 <p>Plan financiero para competir en gimnasia</p>
 
-<button onclick="scrollToSavings()">
+<p class="tag">Meta: $3,000,000</p>
+
+<button onclick="scrollToSavings()" class="primary">
 Comenzar mi ahorro
 </button>
 
@@ -45,6 +47,7 @@ Comenzar mi ahorro
 
 
 <main class="dashboard" id="dashboard">
+
 
 <!-- META FINANCIERA -->
 
@@ -66,15 +69,13 @@ Comenzar mi ahorro
 
 <div class="stat">
 <span class="label">Faltante</span>
-<span class="value">$<span id="remaining">0</span></span>
+<span class="value"><span id="remaining">0</span></span>
 </div>
 
 </div>
 
 <div class="progress-container">
-
 <div id="progress-bar"></div>
-
 </div>
 
 <p id="progress-text">0% completado</p>
@@ -101,12 +102,12 @@ placeholder="Monto ahorrado"
 inputmode="numeric"
 />
 
-<button id="saveBtn" class="primary">
+<button id="saveBtn">
 Agregar ahorro
 </button>
 
 <button id="resetBtn" class="secondary">
-Reiniciar
+Reiniciar progreso
 </button>
 
 </div>
@@ -146,6 +147,8 @@ Reiniciar
 
 <h2>📅 Calendario de ahorro</h2>
 
+<p class="tag">Marca los días que lograste ahorrar</p>
+
 <div id="calendar" class="calendar-grid"></div>
 
 </section>
@@ -155,20 +158,22 @@ Reiniciar
 
 <section class="card history">
 
-<h2>📜 Historial</h2>
+<h2>📜 Historial de ahorros</h2>
 
 <ul id="historyList"></ul>
 
 </section>
+
 
 </main>
 
 
 <footer>
 
-<p>App financiera personal • Camino a Cancún 2026</p>
+<p>💰 App financiera personal • Camino a Cancún 2026</p>
 
 </footer>
+
 
 <!-- Script principal -->
 <script defer src="script.js"></script>

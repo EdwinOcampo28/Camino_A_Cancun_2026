@@ -13,14 +13,24 @@ const remainingEl = document.getElementById("remaining");
 const progressBar = document.getElementById("progress-bar");
 const progressText = document.getElementById("progress-text");
 const calendar = document.getElementById("calendar");
+const historyList = document.getElementById("historyList");
 
 let chart;
 let monthlyChart;
 
-/* FORMATEO MONEDA */
+/* UTILIDADES */
 
 function formatMoney(value){
 return value.toLocaleString("es-CO");
+}
+
+function getCumulativeData(){
+
+return history.reduce((acc,h,i)=>{
+acc.push((acc[i-1]||0)+h.amount);
+return acc;
+},[]);
+
 }
 
 /* ACTUALIZAR UI */
@@ -89,9 +99,9 @@ updateUI();
 
 function updateHistory(){
 
-const list = document.getElementById("historyList");
+if(!historyList) return;
 
-list.innerHTML = "";
+historyList.innerHTML = "";
 
 history.slice().reverse().forEach(h => {
 
@@ -99,19 +109,20 @@ const li = document.createElement("li");
 
 const date = new Date(h.date).toLocaleDateString("es-CO");
 
-li.textContent = date + " - $" + formatMoney(h.amount);
+li.textContent = `${date} - $${formatMoney(h.amount)}`;
 
-list.appendChild(li);
+historyList.appendChild(li);
 
 });
 
 }
 
-/* METAS INTERMEDIAS */
+/* METAS */
 
 function updateMilestones(){
 
 const list = document.getElementById("milestones");
+if(!list) return;
 
 list.innerHTML = "";
 
@@ -130,6 +141,8 @@ list.appendChild(li);
 /* CALENDARIO */
 
 function createCalendar(){
+
+if(!calendar) return;
 
 for(let i = 1; i <= 30; i++){
 
@@ -173,6 +186,7 @@ calendar.appendChild(day);
 function createChart(){
 
 const ctx = document.getElementById("chart");
+if(!ctx) return;
 
 chart = new Chart(ctx,{
 
@@ -182,10 +196,7 @@ data:{
 labels: history.map((_,i) => "Ahorro " + (i+1)),
 datasets:[{
 label:"Progreso total",
-data: history.reduce((acc,h,i)=>{
-acc.push((acc[i-1]||0)+h.amount);
-return acc;
-},[]),
+data: getCumulativeData(),
 fill:true,
 tension:.3
 }]
@@ -213,13 +224,8 @@ createChart();
 return;
 }
 
-const cumulative = history.reduce((acc,h,i)=>{
-acc.push((acc[i-1]||0)+h.amount);
-return acc;
-},[]);
-
 chart.data.labels = history.map((_,i)=>"Ahorro "+(i+1));
-chart.data.datasets[0].data = cumulative;
+chart.data.datasets[0].data = getCumulativeData();
 
 chart.update();
 
@@ -250,12 +256,13 @@ return months;
 
 function updateMonthlyChart(){
 
+const ctx = document.getElementById("monthlyChart");
+if(!ctx) return;
+
 const data = createMonthlyData();
 
 const labels = Object.keys(data);
 const values = Object.values(data);
-
-const ctx = document.getElementById("monthlyChart");
 
 if(!monthlyChart){
 
@@ -295,7 +302,7 @@ monthlyChart.update();
 
 }
 
-/* CONFETI META */
+/* CONFETI */
 
 function launchConfetti(){
 
@@ -306,7 +313,6 @@ const confetti = document.createElement("div");
 confetti.className="confetti";
 
 confetti.style.left=Math.random()*100+"%";
-
 confetti.style.animationDelay=Math.random()*2+"s";
 
 document.body.appendChild(confetti);
@@ -364,7 +370,8 @@ function registerSW(){
 
 if("serviceWorker" in navigator){
 
-navigator.serviceWorker.register("sw.js")
+navigator.serviceWorker
+.register("sw.js")
 .catch(err => console.log("SW error", err));
 
 }
@@ -373,9 +380,9 @@ navigator.serviceWorker.register("sw.js")
 
 /* EVENTOS */
 
-document.getElementById("saveBtn").addEventListener("click", addSavings);
+document.getElementById("saveBtn")?.addEventListener("click", addSavings);
 
-document.getElementById("resetBtn").addEventListener("click", () => {
+document.getElementById("resetBtn")?.addEventListener("click", () => {
 
 if(confirm("¿Reiniciar progreso?")){
 
@@ -400,33 +407,31 @@ function scrollToSavings(){
 
 const section = document.getElementById("dashboard");
 
-if(section){
-
-section.scrollIntoView({
+section?.scrollIntoView({
 behavior:"smooth"
 });
 
 }
 
-}
-
 /* CONTADOR ANIMADO */
 
-function animateValue(element, start, end, duration) {
+function animateValue(element, start, end, duration){
 
 let startTime = null;
 
-function animation(currentTime) {
+function animation(currentTime){
 
-if (!startTime) startTime = currentTime;
+if(!startTime) startTime = currentTime;
 
-const progress = Math.min((currentTime - startTime) / duration, 1);
+const progress = Math.min((currentTime - startTime)/duration,1);
 
-const value = Math.floor(progress * (end - start) + start);
+const value = Math.floor(progress*(end-start)+start);
 
+if(element){
 element.textContent = value.toLocaleString("es-CO");
+}
 
-if (progress < 1) {
+if(progress < 1){
 requestAnimationFrame(animation);
 }
 

@@ -1,60 +1,82 @@
-const CACHE_NAME = "cancun-app-v1";
+const CACHE_NAME = "cancun-app-v2";
 
 const ASSETS = [
-  "/",
-  "/index.html",
-  "/styles.css",
-  "/app.js",
-  "/manifest.json"
+  "./",
+  "./index.html",
+  "./styles.css",
+  "./app.js",
+  "./manifest.json",
+  "./icons/icon-192.png",
+  "./icons/icon-512.png"
 ];
 
+
+// INSTALL
 self.addEventListener("install", event => {
 
   console.log("✅ Service Worker instalado");
 
+  self.skipWaiting();
+
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => {
-        return cache.addAll(ASSETS);
-      })
+      .then(cache => cache.addAll(ASSETS))
   );
 
 });
 
+
+// ACTIVATE
 self.addEventListener("activate", event => {
 
   console.log("🚀 Service Worker activo");
 
   event.waitUntil(
+
     caches.keys().then(keys => {
 
       return Promise.all(
-        keys.map(key => {
-          if(key !== CACHE_NAME){
-            return caches.delete(key);
-          }
-        })
+        keys
+          .filter(key => key !== CACHE_NAME)
+          .map(key => caches.delete(key))
       );
 
     })
+
   );
+
+  return self.clients.claim();
 
 });
 
+
+// FETCH
 self.addEventListener("fetch", event => {
+
+  if(event.request.method !== "GET") return;
 
   event.respondWith(
 
-    caches.match(event.request)
-      .then(response => {
+    caches.match(event.request).then(cached => {
 
-        if(response){
+      const networkFetch = fetch(event.request)
+        .then(response => {
+
+          if(!response || response.status !== 200) return response;
+
+          const clone = response.clone();
+
+          caches.open(CACHE_NAME)
+            .then(cache => cache.put(event.request, clone));
+
           return response;
-        }
 
-        return fetch(event.request);
+        })
+        .catch(() => cached);
 
-      })
+      return cached || networkFetch;
+
+    })
 
   );
 
