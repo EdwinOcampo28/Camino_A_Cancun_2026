@@ -27,9 +27,10 @@ padding:0;
 box-sizing:border-box;
 }
 
+/* BODY + FONDO */
 body{
+
 font-family: Arial, Helvetica, sans-serif;
-margin:0;
 
 background-image: url("img/fondo.jpg");
 background-size: cover;
@@ -38,35 +39,54 @@ background-repeat: no-repeat;
 background-attachment: fixed;
 
 color:#333;
-}
 
-/* BACKGROUND */
+overflow-x:hidden;
 
-@keyframes gradientBG{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
 }
 
 /* HEADER */
 
-.hero{
+header{
 
 text-align:center;
-padding:70px 20px;
-
-background:var(--gradient-main);
-
 color:white;
 
-box-shadow:0 15px 40px rgba(0,0,0,0.35);
+padding:100px 20px;
+
+min-height:320px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:
+linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+url("img/header.jpg");
+
+background-size:cover;
+background-position:center;
+
+animation:headerZoom 12s ease-in-out infinite alternate;
 
 }
 
-.hero h1{
+/* CONTENIDO HERO */
 
-font-size:2.6rem;
-margin-top:10px;
+.hero-content{
+animation:fadeUp 1s ease;
+}
+
+.hero-content h1{
+
+font-size:60px;
+margin-bottom:10px;
+
+}
+
+.hero-content p{
+
+font-size:22px;
+margin-bottom:15px;
 
 }
 
@@ -95,7 +115,6 @@ margin:auto;
 padding:30px;
 
 display:grid;
-
 grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
 
 gap:25px;
@@ -134,7 +153,7 @@ box-shadow:var(--shadow-hover);
 
 }
 
-/* CARD LINE */
+/* LINEA SUPERIOR */
 
 .card::before{
 
@@ -165,7 +184,7 @@ color:white;
 color:white;
 }
 
-/* TITLES */
+/* TITULOS */
 
 h2{
 
@@ -221,7 +240,7 @@ font-size:18px;
 
 }
 
-/* INPUT GROUP */
+/* INPUTS */
 
 .input-group{
 
@@ -259,7 +278,7 @@ box-shadow:0 0 0 3px rgba(58,134,255,0.2);
 
 }
 
-/* BUTTONS */
+/* BOTONES */
 
 button{
 
@@ -292,12 +311,6 @@ box-shadow:0 10px 20px rgba(0,0,0,0.25);
 button.secondary{
 
 background:#94a3b8;
-
-}
-
-button.primary{
-
-background:var(--gradient-main);
 
 }
 
@@ -337,7 +350,7 @@ transition:width .7s ease;
 
 }
 
-/* CHART CONTAINER */
+/* GRAFICOS */
 
 .chart-container{
 
@@ -347,7 +360,7 @@ height:250px;
 
 }
 
-/* CALENDAR */
+/* CALENDARIO */
 
 .calendar-grid{
 
@@ -397,7 +410,7 @@ transform:scale(1.05);
 
 }
 
-/* HISTORY */
+/* HISTORIAL */
 
 .history ul{
 
@@ -426,7 +439,7 @@ opacity:.8;
 
 }
 
-/* ANIMATIONS */
+/* ANIMACIONES */
 
 .card:nth-child(1){animation-delay:.1s}
 .card:nth-child(2){animation-delay:.2s}
@@ -449,12 +462,30 @@ transform:translateY(0);
 
 }
 
+@keyframes headerZoom{
+
+0%{
+background-size:100%;
+}
+
+100%{
+background-size:110%;
+}
+
+}
+
+
+
 /* MOBILE */
 
 @media(max-width:600px){
 
-.hero h1{
-font-size:1.9rem;
+.hero-content h1{
+font-size:32px;
+}
+
+.hero-content p{
+font-size:18px;
 }
 
 .dashboard{

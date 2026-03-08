@@ -27,8 +27,15 @@ return value.toLocaleString("es-CO");
 
 function updateUI(){
 
-savedEl.textContent = formatMoney(saved);
-remainingEl.textContent = formatMoney(goal - saved);
+animateValue(savedEl, 0, saved, 800);
+
+const diff = goal - saved;
+
+if(diff > 0){
+remainingEl.textContent = "Faltan $" + formatMoney(diff);
+}else{
+remainingEl.textContent = "Sobraste $" + formatMoney(Math.abs(diff));
+}
 
 const percent = Math.min((saved/goal)*100,100);
 
@@ -46,6 +53,7 @@ updateHistory();
 
 if(saved >= goal){
 notify("🎉 Meta alcanzada! Cancún te espera!");
+launchConfetti();
 }
 
 }
@@ -174,7 +182,10 @@ data:{
 labels: history.map((_,i) => "Ahorro " + (i+1)),
 datasets:[{
 label:"Progreso total",
-data: history.map(h => h.amount),
+data: history.reduce((acc,h,i)=>{
+acc.push((acc[i-1]||0)+h.amount);
+return acc;
+},[]),
 fill:true,
 tension:.3
 }]
@@ -182,6 +193,10 @@ tension:.3
 
 options:{
 responsive:true,
+animation:{
+duration:1500,
+easing:'easeOutQuart'
+},
 plugins:{
 legend:{display:false}
 }
@@ -198,8 +213,13 @@ createChart();
 return;
 }
 
+const cumulative = history.reduce((acc,h,i)=>{
+acc.push((acc[i-1]||0)+h.amount);
+return acc;
+},[]);
+
 chart.data.labels = history.map((_,i)=>"Ahorro "+(i+1));
-chart.data.datasets[0].data = history.map(h=>h.amount);
+chart.data.datasets[0].data = cumulative;
 
 chart.update();
 
@@ -253,6 +273,10 @@ data:values
 
 options:{
 responsive:true,
+animation:{
+duration:1500,
+easing:'easeOutQuart'
+},
 plugins:{
 legend:{display:false}
 }
@@ -268,6 +292,28 @@ monthlyChart.data.labels = labels;
 monthlyChart.data.datasets[0].data = values;
 
 monthlyChart.update();
+
+}
+
+/* CONFETI META */
+
+function launchConfetti(){
+
+for(let i=0;i<100;i++){
+
+const confetti = document.createElement("div");
+
+confetti.className="confetti";
+
+confetti.style.left=Math.random()*100+"%";
+
+confetti.style.animationDelay=Math.random()*2+"s";
+
+document.body.appendChild(confetti);
+
+setTimeout(()=>confetti.remove(),3000);
+
+}
 
 }
 
@@ -347,3 +393,55 @@ updateUI();
 countdown();
 initNotifications();
 registerSW();
+
+/* SCROLL HERO */
+
+function scrollToSavings(){
+
+const section = document.getElementById("dashboard");
+
+if(section){
+
+section.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+}
+
+/* CONTADOR ANIMADO */
+
+function animateValue(element, start, end, duration) {
+
+let startTime = null;
+
+function animation(currentTime) {
+
+if (!startTime) startTime = currentTime;
+
+const progress = Math.min((currentTime - startTime) / duration, 1);
+
+const value = Math.floor(progress * (end - start) + start);
+
+element.textContent = value.toLocaleString("es-CO");
+
+if (progress < 1) {
+requestAnimationFrame(animation);
+}
+
+}
+
+requestAnimationFrame(animation);
+
+}
+
+/* PARALLAX */
+
+window.addEventListener("scroll", () => {
+
+const scroll = window.scrollY;
+
+document.body.style.backgroundPositionY = scroll * 0.4 + "px";
+
+});
