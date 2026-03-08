@@ -4,7 +4,7 @@ let saved = Number(localStorage.getItem("saved")) || 0;
 let history = JSON.parse(localStorage.getItem("history")) || [];
 let savedDays = JSON.parse(localStorage.getItem("savedDays")) || [];
 
-const milestones = [1000000,2000000,3000000];
+const milestones = [1000000,1500000,2500000];
 
 /* ELEMENTOS */
 
@@ -25,34 +25,40 @@ return value.toLocaleString("es-CO");
 }
 
 function getCumulativeData(){
-
 return history.reduce((acc,h,i)=>{
 acc.push((acc[i-1]||0)+h.amount);
 return acc;
 },[]);
-
 }
 
 /* ACTUALIZAR UI */
 
 function updateUI(){
 
+if(savedEl){
 animateValue(savedEl, 0, saved, 800);
+}
 
 const diff = goal - saved;
 
+if(remainingEl){
 if(diff > 0){
 remainingEl.textContent = "Faltan $" + formatMoney(diff);
 }else{
-remainingEl.textContent = "Sobraste $" + formatMoney(Math.abs(diff));
+remainingEl.textContent = "Sobrante $" + formatMoney(Math.abs(diff));
+}
 }
 
 const percent = Math.min((saved/goal)*100,100);
 
+if(progressBar){
 progressBar.style.width = percent + "%";
 progressBar.textContent = Math.floor(percent) + "%";
+}
 
+if(progressText){
 progressText.textContent = percent.toFixed(1) + "% completado";
+}
 
 localStorage.setItem("saved", saved);
 
@@ -73,6 +79,8 @@ launchConfetti();
 function addSavings(){
 
 const input = document.getElementById("amount");
+if(!input) return;
+
 const value = Number(input.value);
 
 if(value <= 0 || isNaN(value)){
@@ -144,6 +152,8 @@ function createCalendar(){
 
 if(!calendar) return;
 
+calendar.innerHTML="";
+
 for(let i = 1; i <= 30; i++){
 
 const day = document.createElement("div");
@@ -189,7 +199,6 @@ const ctx = document.getElementById("chart");
 if(!ctx) return;
 
 chart = new Chart(ctx,{
-
 type:"line",
 
 data:{
@@ -204,13 +213,8 @@ tension:.3
 
 options:{
 responsive:true,
-animation:{
-duration:1500,
-easing:'easeOutQuart'
-},
-plugins:{
-legend:{display:false}
-}
+animation:{duration:1500,easing:'easeOutQuart'},
+plugins:{legend:{display:false}}
 }
 
 });
@@ -267,7 +271,6 @@ const values = Object.values(data);
 if(!monthlyChart){
 
 monthlyChart = new Chart(ctx,{
-
 type:"bar",
 
 data:{
@@ -280,13 +283,8 @@ data:values
 
 options:{
 responsive:true,
-animation:{
-duration:1500,
-easing:'easeOutQuart'
-},
-plugins:{
-legend:{display:false}
-}
+animation:{duration:1500,easing:'easeOutQuart'},
+plugins:{legend:{display:false}}
 }
 
 });
@@ -378,29 +376,6 @@ navigator.serviceWorker
 
 }
 
-/* EVENTOS */
-
-document.getElementById("saveBtn")?.addEventListener("click", addSavings);
-
-document.getElementById("resetBtn")?.addEventListener("click", () => {
-
-if(confirm("¿Reiniciar progreso?")){
-
-localStorage.clear();
-location.reload();
-
-}
-
-});
-
-/* INIT */
-
-createCalendar();
-updateUI();
-countdown();
-initNotifications();
-registerSW();
-
 /* SCROLL HERO */
 
 function scrollToSavings(){
@@ -448,5 +423,32 @@ window.addEventListener("scroll", () => {
 const scroll = window.scrollY;
 
 document.body.style.backgroundPositionY = scroll * 0.4 + "px";
+
+});
+
+/* EVENTOS */
+
+document.getElementById("saveBtn")?.addEventListener("click", addSavings);
+
+document.getElementById("resetBtn")?.addEventListener("click", () => {
+
+if(confirm("¿Reiniciar progreso?")){
+
+localStorage.clear();
+location.reload();
+
+}
+
+});
+
+/* INIT */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+createCalendar();
+updateUI();
+countdown();
+initNotifications();
+registerSW();
 
 });
