@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Camino a Cancún PRO</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#00c6ff">
+
+<!-- Tipografía -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Estilos -->
+<link rel="stylesheet" href="style.css">
+
+<!-- Chart.js -->
+<script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<header class="hero">
+
+<div class="hero-content">
+
+<p class="tag">Meta: Viajar a Cancún para la competencia 🏅</p>
+
+<h1>🏝 Camino a Cancún</h1>
+
+<p id="countdown" class="countdown"></p>
+
+</div>
+
+</header>
+
+<main class="dashboard">
+
+<!-- META FINANCIERA -->
+
+<section class="card goal-card">
+
+<h2>🎯 Meta financiera</h2>
+
+<div class="stats">
+
+<div class="stat">
+<span class="label">Meta total</span>
+<span class="value">$4,000,000</span>
+</div>
+
+<div class="stat highlight">
+<span class="label">Ahorrado</span>
+<span class="value">$<span id="saved">0</span></span>
+</div>
+
+<div class="stat">
+<span class="label">Faltante</span>
+<span class="value">$<span id="remaining">0</span></span>
+</div>
+
+</div>
+
+<div class="progress-container">
+
+<div id="progress-bar"></div>
+
+</div>
+
+<p id="progress-text"></p>
+
+<h3 class="sub">🪙 Metas intermedias</h3>
+
+<ul id="milestones" class="milestones"></ul>
+
+</section>
+
+
+<!-- REGISTRAR AHORRO -->
+
+<section class="card">
+
+<h2>💰 Registrar ahorro</h2>
+
+<div class="input-group">
+
+<input 
+type="number"
+id="amount"
+placeholder="Monto ahorrado"
+inputmode="numeric"
+/>
+
+<button id="saveBtn" class="primary">
+Agregar ahorro
+</button>
+
+<button id="resetBtn" class="secondary">
+Reiniciar
+</button>
+
+</div>
+
+</section>
+
+
+<!-- GRAFICO PROGRESO -->
+
+<section class="card">
+
+<h2>📊 Progreso del ahorro</h2>
+
+<div class="chart-container">
+<canvas id="chart"></canvas>
+</div>
+
+</section>
+
+
+<!-- GRAFICO MENSUAL -->
+
+<section class="card">
+
+<h2>📈 Ahorro mensual</h2>
+
+<div class="chart-container">
+<canvas id="monthlyChart"></canvas>
+</div>
+
+</section>
+
+
+<!-- CALENDARIO -->
+
+<section class="card">
+
+<h2>📅 Calendario de ahorro</h2>
+
+<div id="calendar" class="calendar-grid"></div>
+
+</section>
+
+
+<!-- HISTORIAL -->
+
+<section class="card history">
+
+<h2>📜 Historial</h2>
+
+<ul id="historyList"></ul>
+
+</section>
+
+</main>
+
+
+<footer>
+
+<p>App financiera personal • Camino a Cancún</p>
+
+</footer>
+
+<!-- Script principal -->
+<script defer src="script.js"></script>
+
+</body>
+</html>
