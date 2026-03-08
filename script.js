@@ -1,10 +1,10 @@
-const goal = 4000000;
+const goal = 3000000;
 
 let saved = Number(localStorage.getItem("saved")) || 0;
 let history = JSON.parse(localStorage.getItem("history")) || [];
 let savedDays = JSON.parse(localStorage.getItem("savedDays")) || [];
 
-const milestones = [1000000,2000000,3000000,4000000];
+const milestones = [1000000,2000000,3000000];
 
 /* ELEMENTOS */
 
