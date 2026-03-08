@@ -28,20 +28,16 @@ box-sizing:border-box;
 }
 
 body{
+font-family: Arial, Helvetica, sans-serif;
+margin:0;
 
-font-family:'Poppins',sans-serif;
+background-image: url("img/fondo.jpg");
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
 
-background:linear-gradient(-45deg,#0f172a,#1e293b,#020617,#0f172a);
-background-size:400% 400%;
-
-animation:gradientBG 18s ease infinite;
-
-min-height:100vh;
-
-color:var(--text-dark);
-
-line-height:1.5;
-
+color:#333;
 }
 
 /* BACKGROUND */
