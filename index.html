@@ -1,182 +1,99 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Camino a Cancún 2026</title>
-
-<!-- PWA -->
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#00c6ff">
-
-<!-- Tipografía -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<!-- Estilos -->
-<link rel="stylesheet" href="style.css">
-
-<!-- Chart.js -->
-<script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0077b6">
+  <meta name="description" content="Plan financiero personal para alcanzar tu meta de ahorro y viajar a Cancún.">
+  <meta name="color-scheme" content="light">
+  <title>Camino a Cancún 2026 · Plan de ahorro</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
 </head>
-
 <body>
-
-<!-- HERO -->
-
-<header class="hero">
-
-<div class="hero-content">
-
-<h1>🏝 Camino a Cancún 2026</h1>
-
-<p>Plan financiero para competir en gimnasia</p>
-
-<p class="tag">Meta: $3,000,000</p>
-
-<button onclick="scrollToSavings()" class="primary">
-Comenzar mi ahorro
-</button>
-
-</div>
-
-</header>
-
-
-<main class="dashboard" id="dashboard">
-
-
-<!-- META FINANCIERA -->
-
-<section class="card goal-card">
-
-<h2>🎯 Meta financiera</h2>
-
-<div class="stats">
-
-<div class="stat">
-<span class="label">Meta total</span>
-<span class="value">$3,000,000</span>
-</div>
-
-<div class="stat highlight">
-<span class="label">Ahorrado</span>
-<span class="value">$<span id="saved">0</span></span>
-</div>
-
-<div class="stat">
-<span class="label">Faltante</span>
-<span class="value"><span id="remaining">0</span></span>
-</div>
-
-</div>
-
-<div class="progress-container">
-<div id="progress-bar"></div>
-</div>
-
-<p id="progress-text">0% completado</p>
-
-<h3 class="sub">🪙 Metas intermedias</h3>
-
-<ul id="milestones" class="milestones"></ul>
-
-</section>
-
-
-<!-- REGISTRAR AHORRO -->
-
-<section class="card savings-section" id="savings">
-
-<h2>💰 Registrar ahorro</h2>
-
-<div class="input-group">
-
-<input 
-type="number"
-id="amount"
-placeholder="Monto ahorrado"
-inputmode="numeric"
-/>
-
-<button id="saveBtn">
-Agregar ahorro
-</button>
-
-<button id="resetBtn" class="secondary">
-Reiniciar progreso
-</button>
-
-</div>
-
-</section>
-
-
-<!-- GRAFICO PROGRESO -->
-
-<section class="card">
-
-<h2>📊 Progreso del ahorro</h2>
-
-<div class="chart-container">
-<canvas id="chart"></canvas>
-</div>
-
-</section>
-
-
-<!-- GRAFICO MENSUAL -->
-
-<section class="card">
-
-<h2>📈 Ahorro mensual</h2>
-
-<div class="chart-container">
-<canvas id="monthlyChart"></canvas>
-</div>
-
-</section>
-
-
-<!-- CALENDARIO -->
-
-<section class="card">
-
-<h2>📅 Calendario de ahorro</h2>
-
-<p class="tag">Marca los días que lograste ahorrar</p>
-
-<div id="calendar" class="calendar-grid"></div>
-
-</section>
-
-
-<!-- HISTORIAL -->
-
-<section class="card history">
-
-<h2>📜 Historial de ahorros</h2>
-
-<ul id="historyList"></ul>
-
-</section>
-
-
-</main>
-
-
-<footer>
-
-<p>💰 App financiera personal • Camino a Cancún 2026</p>
-
-</footer>
-
-
-<!-- Script principal -->
-<script defer src="script.js"></script>
-
+  <header class="hero">
+    <div class="hero-content">
+      <span class="eyebrow">🏝️ Proyecto personal · 2026</span>
+      <h1>Camino a Cancún</h1>
+      <p>Convierte cada ahorro en un paso más cerca de tu viaje.</p>
+      <div class="hero-actions">
+        <button class="primary" type="button" id="heroSaveBtn">💰 Registrar mi ahorro</button>
+        <span id="countdown" class="eyebrow" aria-live="polite">Calculando fecha…</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="dashboard" id="dashboard">
+    <section class="card goal-card" aria-labelledby="goal-title">
+      <div class="goal-top">
+        <div>
+          <p class="section-kicker">Tu objetivo financiero</p>
+          <h2 id="goal-title">🎯 Meta para Cancún 2026</h2>
+        </div>
+        <span class="goal-badge" id="nextMilestone">Calculando siguiente hito…</span>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><span class="label">Meta total</span><span class="value" id="goalAmount">$3.000.000</span></div>
+        <div class="stat highlight"><span class="label">Ahorrado</span><span class="value">$<span id="saved">0</span></span></div>
+        <div class="stat"><span class="label">Estado</span><span class="value" id="remaining">Faltan $3.000.000</span></div>
+      </div>
+
+      <div class="progress-container" role="progressbar" aria-label="Progreso hacia la meta" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div id="progress-bar"></div>
+      </div>
+      <p class="progress-text" id="progress-text">0% completado</p>
+
+      <h3 class="sub">🪙 Metas intermedias</h3>
+      <ul id="milestones" class="milestones"></ul>
+    </section>
+
+    <section class="card" id="savings" aria-labelledby="savings-title">
+      <p class="section-kicker">Actualiza tu progreso</p>
+      <h2 id="savings-title">💰 Registrar ahorro</h2>
+      <div class="input-group">
+        <input type="number" id="amount" min="1" step="1000" placeholder="Ej. 50.000" inputmode="numeric" aria-label="Monto ahorrado">
+        <button id="saveBtn" class="primary" type="button">Agregar ahorro</button>
+        <button id="resetBtn" class="secondary" type="button">Reiniciar</button>
+      </div>
+      <div class="meta-row"><span>Datos guardados en este navegador</span><span id="savedCount">0 aportes</span></div>
+    </section>
+
+    <section class="card" aria-labelledby="progress-title">
+      <p class="section-kicker">Evolución acumulada</p>
+      <h2 id="progress-title">📊 Progreso del ahorro</h2>
+      <div class="chart-container"><canvas id="chart" aria-label="Gráfico del progreso acumulado"></canvas></div>
+    </section>
+
+    <section class="card" aria-labelledby="monthly-title">
+      <p class="section-kicker">Comparación por periodo</p>
+      <h2 id="monthly-title">📈 Ahorro mensual</h2>
+      <div class="chart-container"><canvas id="monthlyChart" aria-label="Gráfico de ahorro mensual"></canvas></div>
+    </section>
+
+    <section class="card" aria-labelledby="calendar-title">
+      <p class="section-kicker">Constancia</p>
+      <h2 id="calendar-title">📅 Calendario de ahorro</h2>
+      <p class="section-kicker">Marca los días en los que realizaste un aporte.</p>
+      <div id="calendar" class="calendar-grid" aria-label="Calendario de días ahorrados"></div>
+    </section>
+
+    <section class="card" aria-labelledby="history-title">
+      <p class="section-kicker">Trazabilidad</p>
+      <h2 id="history-title">📜 Historial de ahorros</h2>
+      <ul id="historyList" class="history-list"></ul>
+    </section>
+  </main>
+
+  <footer>💙 Camino a Cancún 2026 · Tu disciplina de hoy construye el viaje de mañana.</footer>
+
+  <script src="js/app.bundle.js"></script>
 </body>
 </html>

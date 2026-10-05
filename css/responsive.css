@@ -1,0 +1,14 @@
+@media (max-width: 680px) {
+  .card { padding: 21px; border-radius: 20px; }
+  .goal-top { flex-direction: column; }
+  .stats { grid-template-columns: 1fr; }
+  .input-group { grid-template-columns: 1fr; }
+  .calendar-grid { gap: 6px; }
+  .day { border-radius: 9px; font-size: .82rem; }
+  .chart-container { height: 250px; }
+}
+
+@media (max-width: 380px) {
+  .hero h1 { font-size: 2.25rem; }
+  .calendar-grid { gap: 4px; }
+}

@@ -1,83 +1,26 @@
-const CACHE_NAME = "cancun-app-v2";
-
+const CACHE_NAME = 'cancun-app-v4';
 const ASSETS = [
-  "./",
-  "./index.html",
-  "./styles.css",
-  "./app.js",
-  "./manifest.json",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png"
+  './', './index.html', './manifest.json',   './css/base.css', './css/layout.css', './css/components.css', './css/animations.css', './css/responsive.css',
+  './js/config.js', './js/storage.js', './js/utils.js', './js/state.js', './js/ui.js', './js/charts.js', './js/effects.js', './js/app.js', './js/app.bundle.js',
+  './img/fondo.jpg'
 ];
 
-
-// INSTALL
-self.addEventListener("install", event => {
-
-  console.log("✅ Service Worker instalado");
-
-  self.skipWaiting();
-
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(ASSETS))
-  );
-
+self.addEventListener('install', event => {
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
 });
 
-
-// ACTIVATE
-self.addEventListener("activate", event => {
-
-  console.log("🚀 Service Worker activo");
-
-  event.waitUntil(
-
-    caches.keys().then(keys => {
-
-      return Promise.all(
-        keys
-          .filter(key => key !== CACHE_NAME)
-          .map(key => caches.delete(key))
-      );
-
-    })
-
-  );
-
-  return self.clients.claim();
-
+self.addEventListener('activate', event => {
+  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))).then(() => self.clients.claim()));
 });
 
-
-// FETCH
-self.addEventListener("fetch", event => {
-
-  if(event.request.method !== "GET") return;
-
+self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
   event.respondWith(
-
-    caches.match(event.request).then(cached => {
-
-      const networkFetch = fetch(event.request)
-        .then(response => {
-
-          if(!response || response.status !== 200) return response;
-
-          const clone = response.clone();
-
-          caches.open(CACHE_NAME)
-            .then(cache => cache.put(event.request, clone));
-
-          return response;
-
-        })
-        .catch(() => cached);
-
-      return cached || networkFetch;
-
-    })
-
+    caches.match(event.request).then(cached => cached || fetch(event.request).then(response => {
+      if (!response || response.status !== 200 || response.type === 'opaque') return response;
+      const copy = response.clone();
+      caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+      return response;
+    }).catch(() => cached))
   );
-
 });
