@@ -1,0 +1,43 @@
+/* v13 · mejoras prácticas y visuales: aportes rápidos + planificador */
+.quick-amounts{grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-top:2px}
+.quick-amounts>span{font-size:.68rem;font-weight:800;letter-spacing:.04em;color:#8b8067;margin-right:3px}
+.quick-amounts button{border:1px solid #d9c8a7;border-radius:999px;padding:6px 10px;background:#f4e8ce;color:#28594e;font:700 .68rem Poppins,sans-serif;cursor:pointer;transition:transform .16s ease,background .16s ease,box-shadow .16s ease}
+.quick-amounts button:hover{transform:translateY(-1px);background:#e7f0df;box-shadow:0 3px 0 rgba(36,75,63,.1)}
+.savings-planner{grid-column:1/-1;width:min(1040px,100%);justify-self:center;padding:clamp(18px,2.4vw,28px);border:1px solid #dfceb0;border-radius:20px;background:linear-gradient(135deg,#fff9ec,#f1e5cc);box-shadow:4px 5px 0 rgba(36,75,63,.08),0 14px 30px rgba(12,38,31,.08)}
+.savings-planner::before{background:repeating-linear-gradient(90deg,#176b62 0 25px,#e5b653 25px 34px,#e87555 34px 47px,#f8edcf 47px 55px);height:4px}
+.planner-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}.planner-heading .section-kicker{margin:0 0 5px;color:#8b8067;font-size:.63rem}.planner-heading h2{margin:0;color:#244f46;font:700 clamp(1.1rem,1.8vw,1.4rem) Georgia,serif}.planner-heading p:not(.section-kicker){margin:7px 0 0;color:#7b806a;font-size:.8rem;line-height:1.5}
+.planner-stamp{display:grid;place-content:center;flex:0 0 58px;width:58px;height:58px;border:2px dashed #c6a95e;border-radius:50%;color:#176b62;text-align:center;font:800 .8rem Georgia,serif;transform:rotate(8deg)}.planner-stamp span{font:700 .55rem Poppins,sans-serif;letter-spacing:.1em}
+.planner-body{margin-top:17px;padding:15px;border:1px solid #e4d5b8;border-radius:14px;background:rgba(255,253,247,.72)}.planner-body>label{display:block;margin-bottom:8px;color:#4d6655;font-size:.75rem;font-weight:800}
+.planner-input-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:9px}.planner-input-row>span{color:#176b62;font-weight:800}.planner-input-row input{min-height:42px;background:#fffdf7;border-color:#ddc9a4}.planner-input-row .primary{min-height:42px;padding:9px 15px;border-radius:10px;background:linear-gradient(120deg,#176b62,#2d8775);box-shadow:0 3px 0 #0f4f47;font-size:.76rem}
+.planner-results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:12px}.planner-results>div{display:flex;flex-direction:column;gap:6px;min-width:0;padding:11px 12px;border:1px solid #e3d6bb;border-radius:10px;background:#f8f0df}.planner-results span{color:#8b8067;font-size:.64rem}.planner-results strong{color:#24594d;font-size:.86rem;overflow-wrap:anywhere}.planner-note{margin:10px 1px 0;color:#7b806a;font-size:.68rem;line-height:1.5}
+@media(max-width:560px){.quick-amounts{gap:6px}.quick-amounts>span{width:100%}.quick-amounts button{flex:1;padding-inline:6px}.planner-heading{align-items:flex-start}.planner-stamp{flex-basis:48px;width:48px;height:48px}.planner-input-row{grid-template-columns:auto minmax(0,1fr)}.planner-input-row .primary{grid-column:1/-1;width:100%}.planner-results{grid-template-columns:1fr}.planner-results>div{flex-direction:row;justify-content:space-between;align-items:center}}
+
+
+/* Confirmación al sumar aportes rápidos */
+.quick-amount-added { transform: translateY(-2px); box-shadow: 0 0 0 2px rgba(23,107,98,.22), 0 5px 12px rgba(23,107,98,.12); }
+.quick-amount-added { transition: transform .16s ease, box-shadow .16s ease; }
+
+
+/* v15 · herramientas útiles y logros */
+.savings-tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.tool-button{border:1px solid #d9c8a7;border-radius:10px;padding:8px 11px;background:#fff9ec;color:#28594e;font:700 .7rem Poppins,sans-serif;cursor:pointer;transition:transform .15s ease,background .15s ease,border-color .15s ease}
+.tool-button:hover:not(:disabled){transform:translateY(-1px);background:#eaf2e5;border-color:#9eb9a6}
+.tool-button:disabled{opacity:.45;cursor:not-allowed}
+.achievement-strip{margin-top:14px;padding:12px;border:1px solid #e5d7ba;border-radius:13px;background:rgba(244,232,206,.48)}
+.achievement-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px;color:#28594e;font-size:.75rem;font-weight:800}
+.achievement-heading small{color:#8b8067;font-size:.62rem;font-weight:600}
+.achievement-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+.achievement{display:flex;align-items:center;gap:7px;min-width:0;padding:8px;border:1px dashed #d8c9ad;border-radius:10px;background:rgba(255,253,247,.65);opacity:.68}
+.achievement.is-unlocked{opacity:1;border-style:solid;border-color:#a8c7b4;background:#e9f2e4}
+.achievement-icon{font-size:1.05rem;flex:0 0 auto}
+.achievement strong,.achievement small{display:block;overflow-wrap:anywhere}
+.achievement strong{color:#28594e;font-size:.61rem;line-height:1.25}
+.achievement small{margin-top:3px;color:#8b8067;font-size:.55rem;line-height:1.25}
+@media(max-width:760px){.achievement-list{grid-template-columns:repeat(2,minmax(0,1fr))}.achievement:last-child{grid-column:1/-1}}
+@media(max-width:420px){.savings-tools{display:grid;grid-template-columns:1fr}.tool-button{width:100%}.achievement-list{grid-template-columns:1fr}.achievement:last-child{grid-column:auto}.achievement-heading{align-items:flex-start;flex-direction:column;gap:3px}}
+
+
+/* v16 · reto mensual y restauración de respaldos */
+.monthly-challenge{margin-top:14px;padding:13px 14px;border:1px solid #d8c9a9;border-radius:14px;background:linear-gradient(125deg,rgba(255,253,247,.92),rgba(234,242,225,.75));}
+.monthly-challenge-top{display:flex;justify-content:space-between;align-items:center;gap:12px}.monthly-challenge .section-kicker{margin:0 0 3px;font-size:.59rem;color:#9b7951}.monthly-challenge h3{margin:0;color:#244f46;font:700 1rem Georgia,serif}.monthly-challenge-top p:not(.section-kicker){margin:4px 0 0;color:#7b806a;font-size:.68rem;text-transform:capitalize}.challenge-stamp{display:grid;place-content:center;flex:0 0 46px;width:46px;height:46px;border:2px dashed #d2ad54;border-radius:50%;color:#176b62;text-align:center;font:800 .85rem Georgia,serif;transform:rotate(7deg)}.challenge-stamp small{font:700 .43rem Poppins,sans-serif;letter-spacing:.08em}.challenge-progress{height:9px;overflow:hidden;margin-top:12px;border:1px solid #d8c9a9;border-radius:99px;background:#eee3ca}.challenge-progress span{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#176b62,#51aa83,#e5b653);transition:width .45s ease}.challenge-stats{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-top:7px}.challenge-stats strong{color:#176b62;font-size:.91rem}.challenge-stats span{color:#8b8067;font-size:.65rem;text-align:right}.challenge-message{margin:7px 0 0;color:#667b68;font-size:.68rem;line-height:1.45}
+@media(max-width:520px){.monthly-challenge{padding:11px}.challenge-stats{align-items:flex-start;flex-direction:column;gap:2px}.challenge-stats span{text-align:left}}

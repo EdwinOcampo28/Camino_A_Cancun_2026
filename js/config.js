@@ -1,5 +1,5 @@
 export const APP_CONFIG = Object.freeze({
-  goal: 3000000,
+  goal: 7000000,
   currency: 'COP',
   locale: 'es-CO',
   storageKeys: {
@@ -7,7 +7,7 @@ export const APP_CONFIG = Object.freeze({
     history: 'history',
     savedDays: 'savedDays'
   },
-  milestones: [1000000, 1500000, 2500000],
-  tripDate: '2026-07-01T00:00:00',
-  appName: 'Camino a Cancún 2026'
+  milestones: [1500000, 3500000, 5500000],
+  tripDate: '2027-07-01T00:00:00',
+  appName: 'Camino a Cancún 2027'
 });

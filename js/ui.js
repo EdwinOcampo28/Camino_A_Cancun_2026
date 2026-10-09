@@ -65,11 +65,13 @@ function renderHistory(history) {
     elements.historyList.innerHTML = '<li class="empty-state">Aún no hay ahorros registrados. Tu primer aporte aparecerá aquí.</li>';
     return;
   }
-  elements.historyList.innerHTML = history.slice().reverse().map(item => `
-    <li class="history-item">
-      <span class="history-icon">💰</span>
-      <span><strong>$${formatMoney(item.amount)}</strong><small>${formatDate(item.date)}</small></span>
-    </li>`).join('');
+  elements.historyList.innerHTML = `
+    <div class="table-wrap"><table class="savings-table">
+      <thead><tr><th>Movimiento</th><th>Fecha</th><th class="amount-cell">Ahorro</th></tr></thead>
+      <tbody>${history.slice().reverse().map((item, index) => `
+        <tr><td><span class="movement-label"><span class="movement-icon">↗</span><span><strong>Aporte #${history.length-index}</strong><small>Camino a Cancún</small></span></span></td><td class="date-cell">${formatDate(item.date)}</td><td class="amount-cell positive-amount">+$${formatMoney(item.amount)}</td></tr>`).join('')}
+      </tbody>
+    </table></div>`;
 }
 
 function renderCalendar(savedDays) {

@@ -1,6 +1,6 @@
-const CACHE_NAME = 'cancun-app-v4';
+const CACHE_NAME = 'cancun-retro-v17-planner-pair';
 const ASSETS = [
-  './', './index.html', './manifest.json',   './css/base.css', './css/layout.css', './css/components.css', './css/animations.css', './css/responsive.css',
+  './', './index.html', './manifest.json',   './css/base.css', './css/layout.css', './css/components.css', './css/animations.css', './css/responsive.css', './css/progress-redesign.css', './css/plan-enhancements.css', './css/planning-pair.css',
   './js/config.js', './js/storage.js', './js/utils.js', './js/state.js', './js/ui.js', './js/charts.js', './js/effects.js', './js/app.js', './js/app.bundle.js',
   './img/fondo.jpg'
 ];

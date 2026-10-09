@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0077b6">
+  <meta name="theme-color" content="#176b62">
   <meta name="description" content="Plan financiero personal para alcanzar tu meta de ahorro y viajar a Cancún.">
   <meta name="color-scheme" content="light">
-  <title>Camino a Cancún 2026 · Plan de ahorro</title>
+  <title>Camino a Cancún 2027 · Plan de ahorro</title>
   <link rel="manifest" href="manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,11 +16,14 @@
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/progress-redesign.css">
+  <link rel="stylesheet" href="css/plan-enhancements.css">
+  <link rel="stylesheet" href="css/planning-pair.css">
 </head>
 <body>
   <header class="hero">
     <div class="hero-content">
-      <span class="eyebrow">🏝️ Proyecto personal · 2026</span>
+      <span class="eyebrow">🏝️ Proyecto personal · 2027</span>
       <h1>Camino a Cancún</h1>
       <p>Convierte cada ahorro en un paso más cerca de tu viaje.</p>
       <div class="hero-actions">
@@ -31,31 +34,7 @@
   </header>
 
   <main class="dashboard" id="dashboard">
-    <section class="card goal-card" aria-labelledby="goal-title">
-      <div class="goal-top">
-        <div>
-          <p class="section-kicker">Tu objetivo financiero</p>
-          <h2 id="goal-title">🎯 Meta para Cancún 2026</h2>
-        </div>
-        <span class="goal-badge" id="nextMilestone">Calculando siguiente hito…</span>
-      </div>
-
-      <div class="stats">
-        <div class="stat"><span class="label">Meta total</span><span class="value" id="goalAmount">$3.000.000</span></div>
-        <div class="stat highlight"><span class="label">Ahorrado</span><span class="value">$<span id="saved">0</span></span></div>
-        <div class="stat"><span class="label">Estado</span><span class="value" id="remaining">Faltan $3.000.000</span></div>
-      </div>
-
-      <div class="progress-container" role="progressbar" aria-label="Progreso hacia la meta" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-        <div id="progress-bar"></div>
-      </div>
-      <p class="progress-text" id="progress-text">0% completado</p>
-
-      <h3 class="sub">🪙 Metas intermedias</h3>
-      <ul id="milestones" class="milestones"></ul>
-    </section>
-
-    <section class="card" id="savings" aria-labelledby="savings-title">
+    <section class="card savings-top-card" id="savings" aria-labelledby="savings-title">
       <p class="section-kicker">Actualiza tu progreso</p>
       <h2 id="savings-title">💰 Registrar ahorro</h2>
       <div class="input-group">
@@ -63,36 +42,134 @@
         <button id="saveBtn" class="primary" type="button">Agregar ahorro</button>
         <button id="resetBtn" class="secondary" type="button">Reiniciar</button>
       </div>
+      <div class="quick-amounts" role="group" aria-label="Aportes rápidos">
+        <span>Aporte rápido</span>
+        <button type="button" data-quick-amount="10000">+$10 mil</button>
+        <button type="button" data-quick-amount="25000">+$25 mil</button>
+        <button type="button" data-quick-amount="50000">+$50 mil</button>
+        <button type="button" data-quick-amount="100000">+$100 mil</button>
+      </div>
       <div class="meta-row"><span>Datos guardados en este navegador</span><span id="savedCount">0 aportes</span></div>
+      <div class="savings-tools" aria-label="Herramientas de ahorro">
+        <button type="button" id="undoSavingBtn" class="tool-button" disabled>↶ Deshacer último aporte</button>
+        <button type="button" id="exportBackupBtn" class="tool-button">↓ Guardar copia de seguridad</button>
+        <button type="button" id="importBackupBtn" class="tool-button">↑ Restaurar copia</button>
+        <input type="file" id="importBackupFile" accept="application/json,.json" hidden>
+      </div>
+      <div class="achievement-strip" aria-live="polite">
+        <div class="achievement-heading"><span>🏅 Tus logros</span><small id="achievementCount">0 de 5 desbloqueados</small></div>
+        <div class="achievement-list" id="achievementList"></div>
+      </div>
+      
     </section>
 
-    <section class="card" aria-labelledby="progress-title">
+    <section class="planning-pair card-wide" aria-label="Reto mensual y planificador de ahorro">
+      <div class="planning-pair-item planning-challenge-wrap">
+        <section class="monthly-challenge" aria-labelledby="monthlyChallengeTitle">
+        <div class="monthly-challenge-top"><div><p class="section-kicker">Reto del mes</p><h3 id="monthlyChallengeTitle">🎯 Desafío de ahorro</h3><p id="challengeMonth">Este mes, cada aporte cuenta.</p></div><span class="challenge-stamp">+1<br><small>HÁBITO</small></span></div>
+        <div class="challenge-progress" role="progressbar" aria-label="Progreso del reto mensual" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="challengeProgress"><span id="challengeProgressBar"></span></div>
+        <div class="challenge-stats"><strong id="challengeSaved">$0</strong><span id="challengeRemaining">Meta mensual: $300.000</span></div>
+        <p class="challenge-message" id="challengeMessage" aria-live="polite">Registra aportes durante el mes para completar el reto.</p>
+      </section>
+      </div>
+      <div class="planning-pair-item planning-planner-wrap">
+        <section class="card card-wide savings-planner" aria-labelledby="planner-title">
+      <div class="planner-heading">
+        <div><p class="section-kicker">Tu siguiente paso</p><h2 id="planner-title">🧭 Planificador de ahorro</h2><p>Define cuánto puedes separar cada semana y calcula cuándo alcanzarías tu meta.</p></div>
+        <div class="planner-stamp" aria-hidden="true">CUN<br><span>2027</span></div>
+      </div>
+      <div class="planner-body">
+        <label for="weeklyContribution">¿Cuánto puedes ahorrar por semana?</label>
+        <div class="planner-input-row"><span>$</span><input type="number" id="weeklyContribution" min="1000" step="1000" placeholder="Ej. 100.000" inputmode="numeric"><button type="button" class="primary" id="calculatePlanBtn">Calcular mi plan</button></div>
+        <div class="planner-results" aria-live="polite">
+          <div><span>Tiempo estimado</span><strong id="planDuration">Ingresa un aporte semanal</strong></div>
+          <div><span>Fecha estimada de meta</span><strong id="planDate">—</strong></div>
+          <div><span>Proyección semanal</span><strong id="planWeeklyAmount">$0</strong></div>
+        </div>
+        <p class="planner-note" id="planNote">La proyección es orientativa y se recalcula con tu ahorro actual. No incluye intereses ni rendimientos.</p>
+      </div>
+    </section>
+      </div>
+    </section>
+
+    <section class="card goal-card" aria-labelledby="goal-title">
+      <div class="goal-top">
+        <div>
+          <p class="section-kicker">Tu objetivo financiero</p>
+          <h2 id="goal-title">🎯 Meta para Cancún 2027</h2>
+        </div>
+        <span class="goal-badge" id="nextMilestone">Calculando siguiente hito…</span>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><span class="label">Meta total</span><span class="value" id="goalAmount">$7.000.000</span></div>
+        <div class="stat highlight"><span class="label">Ahorrado</span><span class="value">$<span id="saved">0</span></span></div>
+        <div class="stat"><span class="label">Estado</span><span class="value" id="remaining">Faltan $7.000.000</span></div>
+      </div>
+
+      <div class="progress-container" role="progressbar" aria-label="Progreso hacia la meta" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div id="progress-bar"></div>
+      </div>
+      <p class="progress-text" id="progress-text">0% completado</p>
+
+      <div class="travel-insights" aria-label="Resumen de tu plan de viaje">
+        <div class="progress-seal" id="progressSeal" role="img" aria-label="0 por ciento de la meta completada">
+          <div class="progress-seal-inner"><span id="ringPercent">0%</span><small>del viaje</small></div>
+        </div>
+        <div class="pace-panel">
+          <span class="passport-label">✦ BITÁCORA DE VIAJE · 2027</span>
+          <h3>Un ahorro a la vez</h3>
+          <p>Tu constancia de hoy se convierte en recuerdos mañana.</p>
+          <div class="pace-metrics">
+            <div><span>Ritmo diario sugerido</span><strong id="dailyPace">$0</strong></div>
+            <div><span>Ritmo semanal sugerido</span><strong id="weeklyPace">$0</strong></div>
+          </div>
+        </div>
+        <div class="passport-stamp" aria-hidden="true"><span>DESTINO</span><strong>CUN</strong><small>MÉXICO · 2027</small><span class="stamp-palm">🌴</span></div>
+      </div>
+
+      <h3 class="sub">🪙 Metas intermedias</h3>
+      <ul id="milestones" class="milestones"></ul>
+    </section>
+
+
+
+    <section class="card chart-card chart-card-compact progress-feature-card" id="progressChartCard" aria-labelledby="progress-title">
       <p class="section-kicker">Evolución acumulada</p>
       <h2 id="progress-title">📊 Progreso del ahorro</h2>
-      <div class="chart-container"><canvas id="chart" aria-label="Gráfico del progreso acumulado"></canvas></div>
+      <div class="chart-tools" role="group" aria-label="Rango de la gráfica">
+        <button type="button" class="chart-range is-active" data-chart-range="all" aria-pressed="true">Todo</button>
+        <button type="button" class="chart-range" data-chart-range="10" aria-pressed="false">Últimos 10</button>
+      </div>
+      <div class="chart-container"><canvas id="chart" tabindex="0" aria-label="Gráfico interactivo del progreso acumulado. Usa el mouse o las flechas para explorar los aportes"></canvas><div id="chartTooltip" class="chart-tooltip" role="status" aria-live="polite">Pasa el cursor sobre un punto para ver el detalle.</div></div>
+      <div class="chart-summary" id="chartSummary"><span>Selecciona un punto de la gráfica</span><strong>Tu ahorro en movimiento</strong></div>
     </section>
 
-    <section class="card" aria-labelledby="monthly-title">
-      <p class="section-kicker">Comparación por periodo</p>
-      <h2 id="monthly-title">📈 Ahorro mensual</h2>
-      <div class="chart-container"><canvas id="monthlyChart" aria-label="Gráfico de ahorro mensual"></canvas></div>
+
+
+    <section class="card card-wide budget-card" aria-labelledby="budget-title">
+      <p class="section-kicker">Presupuesto de referencia</p>
+      <h2 id="budget-title">🌴 ¿Cómo se distribuye una meta de $7.000.000?</h2>
+      <p class="table-intro">Tu mapa de gastos estimado para una persona y 5–7 días. Las cifras son orientativas: actualízalas cuando tengas cotizaciones reales.</p>
+      <div class="table-wrap"><table class="budget-table">
+        <thead><tr><th>Concepto</th><th>Qué cubre</th><th class="amount-cell">Presupuesto</th></tr></thead>
+        <tbody>
+          <tr><td><span class="budget-name"><span class="budget-dot flight"></span>Vuelos</span></td><td>Ida y regreso desde Colombia</td><td class="amount-cell">$2.000.000</td></tr>
+          <tr><td><span class="budget-name"><span class="budget-dot stay"></span>Hospedaje</span></td><td>5–7 noches, opción económica</td><td class="amount-cell">$1.800.000</td></tr>
+          <tr><td><span class="budget-name"><span class="budget-dot food"></span>Comidas</span></td><td>Alimentación diaria</td><td class="amount-cell">$900.000</td></tr>
+          <tr><td><span class="budget-name"><span class="budget-dot activities"></span>Actividades</span></td><td>Entradas y una excursión</td><td class="amount-cell">$900.000</td></tr>
+          <tr><td><span class="budget-name"><span class="budget-dot transport"></span>Transporte y extras</span></td><td>Traslados, datos y gastos menores</td><td class="amount-cell">$500.000</td></tr>
+          <tr><td><span class="budget-name"><span class="budget-dot reserve"></span>Imprevistos</span></td><td>Reserva para cambios de precio</td><td class="amount-cell">$900.000</td></tr>
+        </tbody>
+        <tfoot><tr><th colspan="2">Meta sugerida</th><th class="amount-cell">$7.000.000</th></tr></tfoot>
+      </table></div>
     </section>
 
-    <section class="card" aria-labelledby="calendar-title">
-      <p class="section-kicker">Constancia</p>
-      <h2 id="calendar-title">📅 Calendario de ahorro</h2>
-      <p class="section-kicker">Marca los días en los que realizaste un aporte.</p>
-      <div id="calendar" class="calendar-grid" aria-label="Calendario de días ahorrados"></div>
-    </section>
 
-    <section class="card" aria-labelledby="history-title">
-      <p class="section-kicker">Trazabilidad</p>
-      <h2 id="history-title">📜 Historial de ahorros</h2>
-      <ul id="historyList" class="history-list"></ul>
-    </section>
+
   </main>
 
-  <footer>💙 Camino a Cancún 2026 · Tu disciplina de hoy construye el viaje de mañana.</footer>
+  <footer><span class="footer-stamp">CUN · 2027</span> Camino a Cancún · Tu disciplina de hoy construye los recuerdos de mañana. <span class="footer-palm">✦ 🌴 ✦</span></footer>
 
   <script src="js/app.bundle.js"></script>
 </body>

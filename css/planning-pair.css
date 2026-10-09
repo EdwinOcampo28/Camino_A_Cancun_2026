@@ -1,0 +1,22 @@
+/* v17 · Reto mensual y planificador en una fila equilibrada */
+.planning-pair{grid-column:1/-1;display:grid;grid-template-columns:minmax(260px,.78fr) minmax(0,1.22fr);gap:16px;align-items:stretch;margin:0}
+.planning-pair-item{min-width:0;min-height:100%}
+.planning-challenge-wrap{padding:0}
+.planning-challenge-wrap .monthly-challenge{height:100%;margin:0;display:flex;flex-direction:column;justify-content:center;padding:17px 18px;border-radius:16px;box-shadow:0 8px 20px rgba(37,67,54,.06)}
+.planning-challenge-wrap .challenge-message{margin-top:auto;padding-top:9px}
+.planning-planner-wrap .savings-planner{height:100%;width:100%;margin:0;min-width:0;padding:18px 20px;border-radius:16px;box-sizing:border-box}
+.planning-planner-wrap .planner-heading{align-items:center;gap:12px}
+.planning-planner-wrap .planner-heading h2{font-size:clamp(1.02rem,1.5vw,1.25rem)}
+.planning-planner-wrap .planner-heading p:not(.section-kicker){max-width:520px;font-size:.73rem}
+.planning-planner-wrap .planner-stamp{flex-basis:48px;width:48px;height:48px;font-size:.72rem}
+.planning-planner-wrap .planner-body{margin-top:12px;padding:12px;border-radius:12px}
+.planning-planner-wrap .planner-input-row{grid-template-columns:auto minmax(0,1fr);gap:8px}
+.planning-planner-wrap .planner-input-row .primary{grid-column:1/-1;width:100%;min-height:38px}
+.planning-planner-wrap .planner-input-row input{min-height:39px}
+.planning-planner-wrap .planner-results{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:9px}
+.planning-planner-wrap .planner-results>div{padding:9px 10px;gap:5px}
+.planning-planner-wrap .planner-results span{font-size:.59rem}
+.planning-planner-wrap .planner-results strong{font-size:.75rem}
+.planning-planner-wrap .planner-note{font-size:.63rem;margin-top:8px}
+@media(max-width:900px){.planning-pair{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:12px}.planning-planner-wrap .planner-results{grid-template-columns:1fr}.planning-planner-wrap .planner-results>div{flex-direction:row;justify-content:space-between;align-items:center}}
+@media(max-width:700px){.planning-pair{grid-template-columns:1fr;gap:14px}.planning-challenge-wrap .monthly-challenge{height:auto}.planning-planner-wrap .savings-planner{height:auto;padding:15px}.planning-planner-wrap .planner-results{grid-template-columns:1fr}.planning-planner-wrap .planner-results>div{flex-direction:row;justify-content:space-between;align-items:center}}
